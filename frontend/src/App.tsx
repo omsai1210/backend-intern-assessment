@@ -1,9 +1,10 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 
 interface ProtectedRouteProps {
-  children: JSX.Element;
+  children: React.ReactElement; // Updated from JSX.Element
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {

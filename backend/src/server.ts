@@ -12,12 +12,18 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-import authRoutes from './routes/authRoutes';
-app.use('/api/auth', authRoutes);
-
 app.get('/', (req, res) => {
     res.send('Backend API is running...');
 });
+
+import authRoutes from './routes/authRoutes';
+import taskRoutes from './routes/taskRoutes';
+import swaggerUi from 'swagger-ui-express';
+import { specs } from './config/swagger';
+
+app.use('/api/auth', authRoutes);
+app.use('/api/tasks', taskRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

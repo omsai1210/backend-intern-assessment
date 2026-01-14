@@ -12,6 +12,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+import authRoutes from './routes/authRoutes';
+app.use('/api/auth', authRoutes);
+
 app.get('/', (req, res) => {
     res.send('Backend API is running...');
 });

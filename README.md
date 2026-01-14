@@ -3,8 +3,7 @@
 A full-stack scalable Task Management application built with Node.js, Express, TypeScript, PostgreSQL, and React.
 
 ## 🎥 Demo
-[Insert Demo Video Link Here]
-*(or embed a GIF/Screenshot)*
+https://github.com/user-attachments/assets/744a155c-eedb-4965-8b77-cbf4e9d98811
 
 ## 🚀 Features
 

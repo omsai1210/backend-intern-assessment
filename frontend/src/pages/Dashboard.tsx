@@ -43,6 +43,16 @@ const Dashboard: React.FC = () => {
         }
     };
 
+    const handleToggleStatus = async (task: Task) => {
+        try {
+            const newStatus = task.status === 'pending' ? 'completed' : 'pending';
+            await client.put(`/tasks/${task.id}`, { status: newStatus });
+            fetchTasks();
+        } catch (err) {
+            alert('Failed to update task');
+        }
+    };
+
     const handleDelete = async (id: number) => {
         if (!confirm('Are you sure?')) return;
         try {
@@ -82,16 +92,26 @@ const Dashboard: React.FC = () => {
                 <div className="grid gap-4">
                     {tasks.map((task) => (
                         <div key={task.id} className="bg-gray-800 p-4 rounded flex justify-between items-center">
-                            <div>
-                                <h3 className="font-bold text-lg">{task.title}</h3>
+                            <div className="flex-1">
+                                <h3 className={`font-bold text-lg ${task.status === 'completed' ? 'line-through text-gray-500' : ''}`}>
+                                    {task.title}
+                                </h3>
                                 <p className="text-gray-400 text-sm">{task.status}</p>
                             </div>
-                            <button
-                                onClick={() => handleDelete(task.id)}
-                                className="text-red-400 hover:text-red-300"
-                            >
-                                Delete
-                            </button>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={() => handleToggleStatus(task)}
+                                    className={`px-3 py-1 rounded ${task.status === 'completed' ? 'bg-yellow-600' : 'bg-green-600'} hover:opacity-80`}
+                                >
+                                    {task.status === 'completed' ? 'Undo' : 'Complete'}
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(task.id)}
+                                    className="text-red-400 hover:text-red-300 px-3 py-1"
+                                >
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     ))}
                     {tasks.length === 0 && <p className="text-gray-500 text-center">No tasks found.</p>}
